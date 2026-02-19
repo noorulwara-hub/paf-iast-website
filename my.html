@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAF-IAST | Pak-Austria Fachhochschule</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:    #1e3c72;
+      --blue:    #1e3c72;
+      --mid:     #1e3c72;
+      --accent:  #ff5722;
+      --gold:    #ff5722;
+      --light:   #f4f6f9;
+      --white:   #ffffff;
+      --text:    #444444;
+      --muted:   #666666;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .topbar {
+      background: var(--mid);
+      padding: 6px 40px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+    }
+    .topbar a { color: rgba(255,255,255,0.8); text-decoration: none; }
+    .topbar a:hover { color: var(--accent); }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .logo-circle {
+      width: 56px;
+      height: 56px;
+      background: url('logo.png') center/cover no-repeat;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--white);
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .brand-text { line-height: 1.1; }
+    .brand-text .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .brand-text .sub {
+      font-size: 10.5px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--white) !important;
+      font-weight: 600 !important;
+      border-radius: 6px;
+    }
+    .nav-cta:hover { background: #e64a19 !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 92vh;
+      background:
+        linear-gradient(160deg, rgba(30,60,114,0.88) 0%, rgba(30,60,114,0.72) 60%, rgba(255,87,34,0.12) 100%),
+        url('pic.png') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* fallback pattern if image doesn't load */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 50%, rgba(30,60,114,0.4) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 400px at 80% 80%, rgba(255,87,34,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,87,34,0.15);
+      border: 1px solid rgba(255,87,34,0.4);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; display: inline-block; }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-content p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 560px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #e64a19; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,87,34,0.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    .hero-stats {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 2;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 140px;
+    }
+    .stat-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-card .lbl { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; font-weight: 500; letter-spacing: 0.5px; }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 90px 40px; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .center { text-align: center; }
+    .center .section-sub { margin: 0 auto; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--light); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 60px auto 0;
+    }
+
+    .about-img {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--mid) 100%);
+      display: grid;
+      place-items: center;
+    }
+
+    .about-img-inner {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* campus placeholder art */
+    .campus-art {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+
+    .about-img::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+
+    .about-text .section-title { color: var(--navy); margin-top: 10px; }
+
+    .about-features {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feat-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,87,34,0.12);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .feat-item p { font-size: 13.5px; color: var(--text); line-height: 1.5; font-weight: 500; }
+
+    /* ─── PROGRAMS ─── */
+    #programs { background: var(--white); }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 50px auto 0;
+    }
+
+    .prog-card {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .prog-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .prog-card:hover { border-color: var(--accent); box-shadow: 0 12px 40px rgba(30,60,114,0.12); transform: translateY(-4px); }
+    .prog-card:hover::before { transform: scaleX(1); }
+
+    .prog-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--light);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .prog-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .prog-card p { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+
+    .prog-tag {
+      display: inline-block;
+      background: var(--light);
+      color: var(--mid);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-right: 6px;
+    }
+
+    /* ─── WHY PAF-IAST ─── */
+    #why {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    #why .section-title { color: var(--white); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 50px auto 0;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 32px 24px;
+      transition: all 0.25s;
+    }
+    .why-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+
+    .why-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .why-card h4 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .why-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* ─── FACILITIES ─── */
+    #facilities { background: var(--light); }
+
+    .fac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 50px auto 0;
+    }
+
+    .fac-item {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      border: 1.5px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .fac-item:hover { border-color: var(--accent); box-shadow: 0 6px 24px rgba(255,87,34,0.12); transform: translateY(-3px); }
+
+    .fac-emoji { font-size: 36px; margin-bottom: 12px; display: block; }
+    .fac-item h4 { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .fac-item p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ─── ADMISSIONS ─── */
+    #admissions { background: var(--white); }
+
+    .adm-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 50px auto 0;
+    }
+
+    .steps { margin-top: 0; }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: var(--mid);
+      color: var(--white);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .step h4 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .sch-box {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .sch-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .sch-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .sch-item:last-child { border-bottom: none; }
+    .sch-item span:first-child { font-size: 22px; }
+    .sch-item .info h5 { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .sch-item .info p { font-size: 12px; color: var(--muted); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--navy); color: var(--white); }
+    #contact .section-title { color: var(--white); }
+    #contact .section-sub { color: rgba(255,255,255,0.6); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 50px auto 0;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .ci-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .ci-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,87,34,0.15);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .ci-item h5 { font-size: 12px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ci-item p { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 2px; line-height: 1.5; }
+
+    /* Form */
+    .contact-form {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 36px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+
+    .form-group select option { background: var(--navy); color: var(--white); }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-error { display: none; font-size: 11px; color: #fc8181; margin-top: 4px; }
+    .form-group.has-error input,
+    .form-group.has-error textarea,
+    .form-group.has-error select { border-color: #fc8181; }
+    .form-group.has-error .form-error { display: block; }
+
+    .form-success {
+      display: none;
+      background: rgba(255,87,34,0.12);
+      border: 1px solid rgba(255,87,34,0.4);
+      border-radius: 10px;
+      padding: 16px;
+      color: var(--accent);
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .btn-submit:hover { background: #e64a19; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,87,34,0.3); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0f2040;
+      color: rgba(255,255,255,0.7);
+      padding: 60px 40px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand .name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 280px; }
+
+    .social-row { display: flex; gap: 10px; margin-top: 20px; }
+    .soc-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .soc-btn:hover { background: var(--accent); }
+
+    .footer-col h5 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+    /* ─── SCROLL ANIMATION ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .hero-stats { display: none; }
+      #hero { padding: 60px 20px 50px; }
+      .about-grid, .adm-layout, .contact-layout { grid-template-columns: 1fr; gap: 36px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ HEADER ════════════ -->
+<header>
+  <div class="topbar">
+    <a href="tel:+92995645112">📞 +92-995-645112</a>
+    <a href="mailto:admission@paf-iast.edu.pk">✉ admission@paf-iast.edu.pk</a>
+    <a href="#contact">Apply Now</a>
+  </div>
+  <nav>
+    <a href="#hero" class="brand">
+      <div class="logo-circle">PAF</div>
+      <div class="brand-text">
+        <div class="name">PAF-IAST</div>
+        <div class="sub">Haripur, KP · Est. 2019</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#admissions">Admissions</a></li>
+      <li><a href="#contact" class="nav-cta">Apply Now</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ════════════ HERO ════════════ -->
+<section id="hero">
+  <div class="hero-content">
+    <h1>Shaping the <em>Innovators</em><br>of Tomorrow</h1>
+    <p>Pak-Austria Fachhochschule: Institute of Applied Sciences & Technology — a world-class technical university in Haripur, KP, built in partnership with Austrian and Chinese universities to transform Pakistan's youth into a global dividend.</p>
+    <div class="hero-btns">
+      <a href="#programs" class="btn-primary">Explore Programs</a>
+      <a href="#contact" class="btn-outline">Apply for Admission</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="num">5+</div>
+      <div class="lbl">Departments</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">2019</div>
+      <div class="lbl">Established</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="lbl">Int'l Partners</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ ABOUT ════════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img">
+      <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a3a6e"/>
+            <stop offset="100%" stop-color="#0a1628"/>
+          </linearGradient>
+        </defs>
+        <rect width="480" height="360" fill="url(#bg)"/>
+        <!-- ground -->
+        <rect x="0" y="270" width="480" height="90" fill="rgba(46,204,113,0.12)"/>
+        <!-- Main building -->
+        <rect x="80" y="100" width="320" height="170" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+        <!-- roof -->
+        <polygon points="70,100 240,40 410,100" fill="rgba(46,204,113,0.25)" stroke="rgba(46,204,113,0.5)" stroke-width="1.5"/>
+        <!-- windows row 1 -->
+        <rect x="110" y="130" width="40" height="35" rx="2" fill="rgba(240,165,0,0.4)"/>
+        <rect x="170" y="130" width="40" height="35" rx="2" fill="rgba(240,165,0,0.4)"/>
+        <rect x="270" y="130" width="40" height="35" rx="2" fill="rgba(240,165,0,0.4)"/>
+        <rect x="330" y="130" width="40" height="35" rx="2" fill="rgba(240,165,0,0.4)"/>
+        <!-- windows row 2 -->
+        <rect x="110" y="185" width="40" height="35" rx="2" fill="rgba(240,165,0,0.3)"/>
+        <rect x="170" y="185" width="40" height="35" rx="2" fill="rgba(240,165,0,0.3)"/>
+        <rect x="270" y="185" width="40" height="35" rx="2" fill="rgba(240,165,0,0.3)"/>
+        <rect x="330" y="185" width="40" height="35" rx="2" fill="rgba(240,165,0,0.3)"/>
+        <!-- door -->
+        <rect x="210" y="215" width="60" height="55" rx="2" fill="rgba(46,204,113,0.35)" stroke="rgba(46,204,113,0.6)" stroke-width="1"/>
+        <!-- logo on building -->
+        <text x="240" y="170" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="18" font-weight="bold" font-family="serif">PAF-IAST</text>
+        <!-- flag pole -->
+        <line x1="240" y1="40" x2="240" y2="10" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+        <rect x="240" y="10" width="28" height="16" fill="rgba(46,204,113,0.8)"/>
+        <!-- trees -->
+        <ellipse cx="50" cy="250" rx="28" ry="35" fill="rgba(46,204,113,0.3)"/>
+        <rect x="46" y="270" width="8" height="20" fill="rgba(46,204,113,0.2)"/>
+        <ellipse cx="430" cy="250" rx="28" ry="35" fill="rgba(46,204,113,0.3)"/>
+        <rect x="426" y="270" width="8" height="20" fill="rgba(46,204,113,0.2)"/>
+        <!-- mountains behind -->
+        <polygon points="0,200 60,120 120,200" fill="rgba(255,255,255,0.04)"/>
+        <polygon points="380,200 440,110 480,200" fill="rgba(255,255,255,0.04)"/>
+        <!-- label -->
+        <text x="240" y="340" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11" font-family="sans-serif">Mang, Haripur Campus · KP, Pakistan</text>
+      </svg>
+    </div>
+    <div class="about-text fade-in">
+      <span class="section-label">About Us</span>
+      <h2 class="section-title">Pakistan's Premier<br>Applied Sciences University</h2>
+      <p class="section-sub">PAF-IAST is a joint initiative of the Government of Khyber Pakhtunkhwa, Austrian, and Chinese universities located in Mang, Haripur. Inaugurated on 17th September 2020 by Prime Minister Imran Khan, it is the first foreign engineering university in Pakistan — just 40 miles from Islamabad.</p>
+      <div class="about-features">
+        <div class="feat-item">
+          <div class="feat-icon">🇦🇹</div>
+          <p>Austrian Fachhochschule model — applied, practical learning</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🌍</div>
+          <p>Exchange programs with Austria, China, and Germany</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔬</div>
+          <p>State-of-the-art labs & High Performance Computing Center</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🏭</div>
+          <p>Innovation Technology Park with Business Incubation</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🎓</div>
+          <p>Faculty trained in Austria & China; USD 50K research grants</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">♀️</div>
+          <p>Strong commitment to gender equality & equal opportunity</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROGRAMS ════════════ -->
+<section id="programs">
+  <div class="center">
+    <span class="section-label">Academic Programs</span>
+    <h2 class="section-title">Degrees Built for the Future</h2>
+    <p class="section-sub">BS, MS & PhD programs designed with international standards and aligned with Pakistan's emerging industries.</p>
+  </div>
+  <div class="programs-grid">
+    <div class="prog-card fade-in">
+      <div class="prog-icon">🤖</div>
+      <h3>Artificial Intelligence</h3>
+      <p>Sino-Pak Center for AI — deep learning, machine intelligence, and data science for the digital economy.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+    <div class="prog-card fade-in">
+      <div class="prog-icon">⚡</div>
+      <h3>Electrical Engineering</h3>
+      <p>Power systems, electronics, and communication engineering with hands-on lab experience from day one.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+    <div class="prog-card fade-in">
+      <div class="prog-icon">⚙️</div>
+      <h3>Mechanical Engineering</h3>
+      <p>Joint program with Chengdu University, China — 2 years Pakistan, 2 years China for a global engineering degree.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+    <div class="prog-card fade-in">
+      <div class="prog-icon">💻</div>
+      <h3>Computer Science</h3>
+      <p>Software engineering, cybersecurity, and computing systems to power Pakistan's digital transformation.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+    <div class="prog-card fade-in">
+      <div class="prog-icon">🚆</div>
+      <h3>Railway Engineering</h3>
+      <p>Pakistan's only dedicated railway engineering program — critical for CPEC and national infrastructure growth.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+    <div class="prog-card fade-in">
+      <div class="prog-icon">🌾</div>
+      <h3>Agriculture & Food Tech</h3>
+      <p>Center of Excellence in Agriculture and Food Technologies for Pakistan's food security and agri-innovation.</p>
+      <span class="prog-tag">BS</span><span class="prog-tag">MS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ WHY PAF-IAST ════════════ -->
+<section id="why">
+  <div class="center">
+    <span class="section-label">Why Choose PAF-IAST</span>
+    <h2 class="section-title">Where World-Class Meets<br>Pakistan's Potential</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card fade-in">
+      <div class="num">1st</div>
+      <h4>Foreign Engineering University</h4>
+      <p>The first internationally co-founded engineering university in Pakistan, setting a new benchmark for technical education.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="num">3+</div>
+      <h4>International Partners</h4>
+      <p>Active collaborations with Austrian, Chinese, and German universities providing students with a global learning network.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="num">$50K</div>
+      <h4>Faculty Research Grants</h4>
+      <p>Every faculty member trained in Austria or China receives an average USD 50,000 to develop innovative research projects.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="num">100%</div>
+      <h4>Industry-Linked Curriculum</h4>
+      <p>Mandatory internships and industry integration ensure graduates are employment-ready from day one.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="num">UK</div>
+      <h4>New 2024 UK Collaboration</h4>
+      <p>A UK higher education delegation visited in 2024 to formalize an international collaboration to enrich academic experiences.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FACILITIES ════════════ -->
+<section id="facilities">
+  <div class="center">
+    <span class="section-label">Campus & Facilities</span>
+    <h2 class="section-title">A Campus Built to Inspire</h2>
+    <p class="section-sub">Purpose-built in the scenic city of Haripur with every amenity a world-class university needs.</p>
+  </div>
+  <div class="fac-grid">
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">🏫</span>
+      <h4>Smart Classrooms</h4>
+      <p>Interactive, tech-enabled learning spaces</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">🔬</span>
+      <h4>Advanced Labs</h4>
+      <p>Latest scientific & engineering equipment</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">💡</span>
+      <h4>Innovation Park</h4>
+      <p>Tech park with Business Incubation Center</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">🖥️</span>
+      <h4>HPC Data Center</h4>
+      <p>High-performance computing facilities</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">📚</span>
+      <h4>Central Library</h4>
+      <p>Vast digital & physical resource collection</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">🏠</span>
+      <h4>On-Campus Hostels</h4>
+      <p>Secure, comfortable student residences</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">⚽</span>
+      <h4>Sports Complex</h4>
+      <p>Fitness center & multi-sport facilities</p>
+    </div>
+    <div class="fac-item fade-in">
+      <span class="fac-emoji">🏗️</span>
+      <h4>Special Tech Zone</h4>
+      <p>ORICAD — research, innovation & commercialization</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ ADMISSIONS ════════════ -->
+<section id="admissions">
+  <div class="center fade-in">
+    <span class="section-label">Admissions 2025</span>
+    <h2 class="section-title">Start Your Journey at PAF-IAST</h2>
+    <p class="section-sub">Merit-based admissions open to all qualified students. Need-based and merit scholarships available.</p>
+  </div>
+  <div class="adm-layout">
+    <div class="steps fade-in">
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:28px;">How to Apply</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Check Eligibility</h4>
+          <p>FSc Pre-Engineering/Pre-Medical with minimum 60% marks (or equivalent A-Levels). NTS/Entry test required for most programs.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Submit Online Application</h4>
+          <p>Fill in the application form at paf-iast.edu.pk with all academic documents, CNIC/B-Form, and passport-size photo.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Entry Test / Interview</h4>
+          <p>Appear for the university's entry test on the scheduled date. Shortlisted candidates may be called for an interview.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Merit List & Enrollment</h4>
+          <p>Merit lists are announced online. Confirm your seat by depositing the fee within the deadline to secure enrollment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sch-box fade-in">
+      <h3>🎓 Scholarships Available</h3>
+      <div class="sch-item">
+        <span>🏅</span>
+        <div class="info">
+          <h5>HEC Merit-Based Scholarship</h5>
+          <p>For top-performing students based on academic excellence</p>
+        </div>
+      </div>
+      <div class="sch-item">
+        <span>💚</span>
+        <div class="info">
+          <h5>HEC Need-Based Scholarship</h5>
+          <p>For students with financial constraints to continue education</p>
+        </div>
+      </div>
+      <div class="sch-item">
+        <span>🤝</span>
+        <div class="info">
+          <h5>Ehsaas Scholarship Program</h5>
+          <p>Government support for underprivileged deserving students</p>
+        </div>
+      </div>
+      <div class="sch-item">
+        <span>🌍</span>
+        <div class="info">
+          <h5>External Scholarships</h5>
+          <p>Opportunities from partner institutions in Austria & China</p>
+        </div>
+      </div>
+      <div class="sch-item">
+        <span>👩‍🎓</span>
+        <div class="info">
+          <h5>Female Student Incentives</h5>
+          <p>Special support to encourage women in STEM fields</p>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary" style="display:block;text-align:center;margin-top:24px;">Apply for Scholarship</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CONTACT ════════════ -->
+<section id="contact">
+  <div class="center">
+    <span class="section-label">Contact Us</span>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-sub">Have questions about admissions, programs, or partnerships? We'd love to hear from you.</p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-info fade-in">
+      <h3>Contact Information</h3>
+      <div class="ci-item">
+        <div class="ci-icon">📍</div>
+        <div>
+          <h5>Address</h5>
+          <p>Mang, Khanpur Road, Haripur<br>Khyber Pakhtunkhwa, Pakistan</p>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">📞</div>
+        <div>
+          <h5>Phone</h5>
+          <p>+92-995-645112 to 118<br>Fax: +92-995-645117</p>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">✉️</div>
+        <div>
+          <h5>Email</h5>
+          <p>admission@paf-iast.edu.pk</p>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">🌐</div>
+        <div>
+          <h5>Website</h5>
+          <p>www.paf-iast.edu.pk</p>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">🕐</div>
+        <div>
+          <h5>Office Hours</h5>
+          <p>Monday – Friday<br>8:00 AM – 4:00 PM PST</p>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form fade-in" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="form-group" id="fg-name">
+          <label for="fname">Full Name *</label>
+          <input type="text" id="fname" placeholder="Your full name" />
+          <div class="form-error">Please enter your full name.</div>
+        </div>
+        <div class="form-group" id="fg-email">
+          <label for="femail">Email Address *</label>
+          <input type="email" id="femail" placeholder="your@email.com" />
+          <div class="form-error">Please enter a valid email address.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" id="fg-phone">
+          <label for="fphone">Phone Number</label>
+          <input type="tel" id="fphone" placeholder="+92 300 0000000" />
+          <div class="form-error">Please enter a valid phone number.</div>
+        </div>
+        <div class="form-group" id="fg-subject">
+          <label for="fsubject">Subject *</label>
+          <select id="fsubject">
+            <option value="">Select a subject</option>
+            <option>Admission Inquiry</option>
+            <option>Program Information</option>
+            <option>Scholarship Inquiry</option>
+            <option>Research Collaboration</option>
+            <option>General Query</option>
+          </select>
+          <div class="form-error">Please select a subject.</div>
+        </div>
+      </div>
+      <div class="form-group" id="fg-program">
+        <label for="fprog">Program of Interest</label>
+        <select id="fprog">
+          <option value="">Select a program</option>
+          <option>Artificial Intelligence</option>
+          <option>Electrical Engineering</option>
+          <option>Mechanical Engineering</option>
+          <option>Computer Science</option>
+          <option>Railway Engineering</option>
+          <option>Agriculture & Food Technology</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group" id="fg-msg">
+        <label for="fmsg">Message *</label>
+        <textarea id="fmsg" placeholder="Write your message here..."></textarea>
+        <div class="form-error">Please enter your message (at least 20 characters).</div>
+      </div>
+      <button type="submit" class="btn-submit">📨 Send Message</button>
+      <div class="form-success" id="formSuccess">
+        ✅ Thank you! Your message has been sent successfully. We will get back to you within 2 business days.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-row">
+        <div class="logo-circle" style="width:44px;height:44px;font-size:14px;">PAF</div>
+        <div class="name">PAF-IAST</div>
+      </div>
+      <p>Pak-Austria Fachhochschule: Institute of Applied Sciences & Technology — transforming Pakistan's youth into a global dividend through world-class applied education.</p>
+      <div class="social-row">
+        <a href="https://www.facebook.com/pafiast" target="_blank" class="soc-btn" title="Facebook">🇫</a>
+        <a href="https://twitter.com/pafiast" target="_blank" class="soc-btn" title="Twitter/X">𝕏</a>
+        <a href="https://www.linkedin.com/school/paf-iast" target="_blank" class="soc-btn" title="LinkedIn">in</a>
+        <a href="https://www.youtube.com/@pafiast" target="_blank" class="soc-btn" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#about">About PAF-IAST</a></li>
+        <li><a href="#programs">Academic Programs</a></li>
+        <li><a href="#facilities">Campus & Facilities</a></li>
+        <li><a href="#admissions">Admissions 2025</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Programs</h5>
+      <ul>
+        <li><a href="#programs">Artificial Intelligence</a></li>
+        <li><a href="#programs">Electrical Engineering</a></li>
+        <li><a href="#programs">Mechanical Engineering</a></li>
+        <li><a href="#programs">Computer Science</a></li>
+        <li><a href="#programs">Railway Engineering</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <ul>
+        <li><a href="#admissions">HEC Merit Scholarship</a></li>
+        <li><a href="#admissions">Ehsaas Program</a></li>
+        <li><a href="#admissions">International Exchange</a></li>
+        <li><a href="#why">Research & Innovation</a></li>
+        <li><a href="#contact">Student Portal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PAF-IAST, Haripur, KP, Pakistan. All Rights Reserved.</span>
+    <span>Designed for <a href="#">Web Dev Assignment</a> | <a href="https://paf-iast.edu.pk" target="_blank">Official Site</a></span>
+  </div>
+</footer>
+
+<script>
+  // ── Scroll Fade-in ──
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ── Contact Form Validation & mailto ──
+  const form = document.getElementById('contactForm');
+
+  function validate(id, groupId, checkFn) {
+    const val = document.getElementById(id).value.trim();
+    const group = document.getElementById(groupId);
+    if (!checkFn(val)) {
+      group.classList.add('has-error');
+      return false;
+    }
+    group.classList.remove('has-error');
+    return true;
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const v1 = validate('fname', 'fg-name', v => v.length >= 2);
+    const v2 = validate('femail', 'fg-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    const v3 = validate('fsubject', 'fg-subject', v => v !== '');
+    const v4 = validate('fmsg', 'fg-msg', v => v.length >= 20);
+
+    // phone optional but validate format if filled
+    const phone = document.getElementById('fphone').value.trim();
+    let v5 = true;
+    if (phone) {
+      v5 = validate('fphone', 'fg-phone', () => /^[\d\s\+\-\(\)]{7,15}$/.test(phone));
+    }
+
+    if (!v1 || !v2 || !v3 || !v4 || !v5) return;
+
+    // Build mailto
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const subject = document.getElementById('fsubject').value;
+    const program = document.getElementById('fprog').value;
+    const msg     = document.getElementById('fmsg').value.trim();
+
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nProgram of Interest: ${program || 'N/A'}\n\nMessage:\n${msg}`
+    );
+
+    const mailtoLink = `mailto:admission@paf-iast.edu.pk?subject=${encodeURIComponent('Website Contact: ' + subject)}&body=${body}`;
+    window.location.href = mailtoLink;
+
+    // Show success
+    document.getElementById('formSuccess').style.display = 'block';
+    form.reset();
+    setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 6000);
+  });
+
+  // Real-time validation clear on input
+  ['fname','femail','fsubject','fmsg'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.closest('.form-group').classList.remove('has-error');
+    });
+  });
+</script>
+</body>
+</html>
